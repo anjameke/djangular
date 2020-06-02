@@ -1,0 +1,61 @@
+<div class="list row">
+    <div class="col-md-8">
+        <div class="input-group mb-3">
+            <input
+                type="text"
+                class="from-control"
+                placeholder="Search by title"
+                [(ngModel)]="title"
+            />
+            <div class="input-group-append">
+                <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="searchTitle()"
+                >
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Tickets list</h4>
+        <ul class="list-group">
+            <li
+                class="list-group-item"
+                *ngFor="let ticket of tickets; let i = index"
+                [class.active]="i == currentIndex"
+                (click)="setActiveTicket(ticket, i)"
+            >
+                {{ticket.title}}
+            </li>
+        </ul>
+
+        <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTickets()">
+            Remove All
+        </button>
+    </div>
+    <div class="col-md-6">
+        <div *ngIf="currentTicket">
+            <h4>Ticket</h4>
+            <div>
+                <label><strong>Title:</strong></label> {{currentTicket.title}}
+            </div>
+            <div>
+                <label><strong>Description:</strong></label>
+                {{currentTicket.description}}
+            </div>
+            <div>
+                <label><strong>Status:</strong></label>
+                {{currentTicket.finished ? "Finished": "Pending"}}
+            </div>
+            <a class="badge badge-warning" href="/tickets/{{currentTicket.id}}">
+                Edit
+            </a>
+        </div>
+        <div *ngIf="!currentTicket">
+            <br />
+            <p>Please click on a ticket...</p>
+        </div>
+    </div>
+</div>
